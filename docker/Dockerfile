@@ -1,23 +1,23 @@
 FROM python:3-buster
 
-MAINTAINER Jookies LTD <jasmin@jookies.net>
+LABEL maintainer="Jookies LTD <jasmin@jookies.net>"
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r jasmin && useradd -r -g jasmin jasmin
 
 # Install requirements
 RUN apt-get update && apt-get install -y \
-    libffi-dev \
-    libssl-dev \
+  libffi-dev \
+  libssl-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Jasmin SMS gateway
 RUN mkdir -p /etc/jasmin/resource \
-    /etc/jasmin/store \
-    /var/log/jasmin \
+  /etc/jasmin/store \
+  /var/log/jasmin \
   && chown jasmin:jasmin /etc/jasmin/store \
-    /var/log/jasmin 
+  /var/log/jasmin 
 
 WORKDIR /build
 
@@ -42,6 +42,9 @@ WORKDIR /usr/jasmin
 RUN sed -i '/\[jcli\]/a bind=0.0.0.0' /etc/jasmin/jasmin.cfg
 RUN sed -i '/\[redis-client\]/a host=redis' /etc/jasmin/jasmin.cfg
 RUN sed -i '/\[amqp-broker\]/a host=rabbitmq' /etc/jasmin/jasmin.cfg
+
+# install PgSQL driver
+RUN pip install psycopg2-binary
 
 EXPOSE 2775 8990 1401
 VOLUME ["/var/log/jasmin", "/etc/jasmin", "/etc/jasmin/store"]

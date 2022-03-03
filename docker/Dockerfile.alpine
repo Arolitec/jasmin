@@ -1,6 +1,6 @@
 FROM python:3-alpine
 
-MAINTAINER Jookies LTD <jasmin@jookies.net>
+LABEL maintainer="Jookies LTD <jasmin@jookies.net>"
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN addgroup -S jasmin && adduser -S -g jasmin jasmin
@@ -33,6 +33,9 @@ RUN pip install -e git+https://github.com/jookies/txamqp.git@master#egg=txamqp3
 RUN pip install -e git+https://github.com/jookies/python-messaging.git@master#egg=python-messaging
 RUN pip install -e git+https://github.com/jookies/smpp.pdu.git@master#egg=smpp.pdu3
 RUN pip install -e git+https://github.com/jookies/smpp.twisted.git@master#egg=smpp.twisted3
+
+# install PgSQL driver
+RUN pip install psycopg2-binary
 
 COPY . .
 

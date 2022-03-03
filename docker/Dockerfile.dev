@@ -1,6 +1,6 @@
 FROM python:3-buster
 
-MAINTAINER Jookies LTD <jasmin@jookies.net>
+LABEL  maintainer="Jookies LTD <jasmin@jookies.net>"
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r jasmin && useradd -r -g jasmin jasmin
@@ -35,6 +35,10 @@ RUN pip install -r requirements-test.txt
 RUN pip install -e git+https://github.com/jookies/python-messaging.git@master#egg=python-messaging
 RUN pip install -e git+https://github.com/jookies/smpp.pdu.git@master#egg=smpp.pdu3
 RUN pip install -e git+https://github.com/jookies/smpp.twisted.git@master#egg=smpp.twisted3
+
+# install PgSQL driver
+RUN pip install psycopg2-binary
+
 RUN pip install .
 
 ENV UNICODEMAP_JP unicode-ascii
