@@ -14,7 +14,7 @@ from smpp.pdu.constants import replace_if_present_flap_name_map, replace_if_pres
 
 # A config map between console-configuration keys and SMPPClientConfig keys.
 SMPPClientConfigKeyMap = {
-    'cid': 'id', 'host': 'host', 'port': 'port', 'username': 'username', 'logrotate': 'log_rotate',
+    'cid': 'id', 'host': 'host', 'host_src': 'bindAddress', 'port': 'port', 'username': 'username', 'logrotate': 'log_rotate',
     'password': 'password', 'systype': 'systemType', 'logfile': 'log_file', 'loglevel': 'log_level',
     'logprivacy': 'log_privacy', 'bind_to': 'sessionInitTimerSecs', 'elink_interval': 'enquireLinkTimerSecs',
     'res_to': 'responseTimerSecs', 'con_loss_retry': 'reconnectOnConnectionLoss', 'bind_npi': 'addressNpi',
@@ -33,7 +33,7 @@ SMPPClientConfigStringKeys = [
     'host', 'systemType', 'username', 'password', 'addressRange', 'useSSL', 'source_addr']
 
 # When updating a key from RequireRestartKeys, the connector need restart for update to take effect
-RequireRestartKeys = ['host', 'port', 'username', 'password', 'systemType']
+RequireRestartKeys = ['host', 'port', 'username', 'password', 'systemType', 'host_src']
 
 
 def castOutputToBuiltInType(key, value):

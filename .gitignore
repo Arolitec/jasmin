@@ -58,3 +58,5 @@ celerybeat-schedule.db
 *.rpm
 
 .env
+
+.DS_Store

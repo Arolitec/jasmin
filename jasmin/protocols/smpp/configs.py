@@ -108,6 +108,7 @@ class SMPPClientConfig:
         if len(self.password) > 16:
             raise TypeMismatch('password is longer than allowed size (16)')
         self.systemType = kwargs.get('systemType', '')
+        self.bindAddress = kwargs.get('bindAddress', None)
 
         # Reconnection
         self.reconnectOnConnectionLoss = kwargs.get('reconnectOnConnectionLoss', True)
