@@ -55,7 +55,7 @@ VOLUME [${LOG_PATH}, ${CONFIG_PATH}, ${STORE_PATH}]
 
 COPY docker/docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["jasmind.py", "--enable-interceptor-client", "--enable-dlr-thrower", "--enable-dlr-lookup", "-u", "jcliadmin", "-p", "jclipwd"]
+CMD ["jasmind.py", "--enable-interceptor-client", "--enable-dlr-thrower", "--enable-dlr-lookup", "-u", "jsadmin", "-p", "jspasswd"]
 # Notes:
 # - jasmind is started with native dlr-thrower and dlr-lookup threads instead of standalone processes
 # - restapi (0.9rc16+) is not started in this docker configuration

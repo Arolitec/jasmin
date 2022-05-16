@@ -33,22 +33,17 @@ ENV RESOURCE_PATH /etc/jasmin/resource
 ENV STORE_PATH /etc/jasmin/store
 ENV LOG_PATH /var/log/jasmin
 
-COPY misc/config/*.cfg ${CONFIG_PATH}/
 COPY misc/config/resource ${RESOURCE_PATH}
 
 WORKDIR /usr/jasmin
 
-# Change binding host for jcli, redis, and amqp
-RUN sed -i '/\[jcli\]/a bind=0.0.0.0' /etc/jasmin/jasmin.cfg
-RUN sed -i '/\[redis-client\]/a host=redis' /etc/jasmin/jasmin.cfg
-RUN sed -i '/\[amqp-broker\]/a host=rabbitmq' /etc/jasmin/jasmin.cfg
-
 EXPOSE 2775 8990 1401
-VOLUME ["/var/log/jasmin", "/etc/jasmin", "/etc/jasmin/store"]
+VOLUME ["/var/log/jasmin", "/etc/jasmin", "/etc/jasmin/store", "/tmp"]
 
 COPY docker/docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["jasmind.py", "--enable-interceptor-client", "--enable-dlr-thrower", "--enable-dlr-lookup", "-u", "jcliadmin", "-p", "jclipwd"]
+CMD ["jasmind.py", "--enable-interceptor-client", "--enable-dlr-thrower", "--enable-dlr-lookup", "-u", "jsadmin", "-p", "jspasswd"]
 # Notes:
 # - jasmind is started with native dlr-thrower and dlr-lookup threads instead of standalone processes
 # - restapi (0.9rc16+) is not started in this docker configuration

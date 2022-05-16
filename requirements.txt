@@ -24,3 +24,6 @@ requests~=2.23.0
 
 # For REST API
 python-mimeparse~=1.6.0
+
+# For Database
+psycopg2-binary~=2.9.3
